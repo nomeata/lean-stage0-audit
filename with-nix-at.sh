@@ -25,10 +25,10 @@ nix run .#update-stage0-commit
 after=$(git rev-parse --short HEAD:stage0)
 cd ..
 
-if ! test -d stage0/"$after"; then
-    mv lean4/stage0 stage0/"$after"/
-fi
+# if ! test -d stage0/"$after"; then
+#     mv lean4/stage0 stage0/"$after"/
+#     git add stage0/$rev/
+# fi
 echo "$0 $@" > "stage0/$after-from-$before.sh"
-# git add stage0/$rev/
 
 echo "Built $after from $before"
