@@ -18,17 +18,14 @@ test -e with-nix-at.sh ||
 test -d lean4 || git clone --single-branch https://github.com/leanprover/lean4 lean4
 cd lean4
 rev=$(git rev-parse --short "$revspec")
-git -c advice.detachedHead=false checkout "$rev"
+parent=$(git rev-parse --short "$rev^")
+git -c advice.detachedHead=false checkout "$parent"
 git reset --hard
 before=$(git rev-parse --short HEAD:stage0)
-nix run .#update-stage0-commit
-after=$(git rev-parse --short HEAD:stage0)
+after=failed
+if nix --substituters https://cache.nixos.org/ run .#update-stage0-commit
+then
+  after=$(git rev-parse --short HEAD:stage0)
+fi
 cd ..
-
-# if ! test -d stage0/"$after"; then
-#     mv lean4/stage0 stage0/"$after"/
-#     git add stage0/$rev/
-# fi
-echo "$0 $@" > "stage0/$after-from-$before.sh"
-
-echo "Built $after from $before"
+echo "$rev,$parent,$before,$after" >> with-nix.log
