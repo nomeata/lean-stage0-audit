@@ -10,8 +10,6 @@ fi
 
 revspec="$1"
 
-mkdir -p stage0
-
 test -e with-nix-at.sh ||
   ( echo "Please run this script from the root of the repository" && exit 1 )
 

@@ -1,13 +1,61 @@
 #!/usr/bin/env python
 
 import csv
+from collections import defaultdict
 
-digest = csv.reader(open('repo-digest.csv', 'r'))
+digest = list(csv.reader(open('repo-digest.csv', 'r')))
 with_nix = csv.reader(open('with-nix.log', 'r'))
 
-naive = {}
-for (rev, _, before, tree) in with_nix:
-    naive[rev] = (before, tree)
+builds = defaultdict(dict)
+for (rev, before, tree) in with_nix:
+    builds[rev][before] = tree
+
+revdata = []
+to_run = []
+
+for i in range(len(digest)-1):
+    (masterrev, rev, stage0_expt, flags_only, clean) = digest[i]
+    parent_tree = digest[i+1][2]
+    stage0_parent = builds[rev].get(parent_tree)
+
+    data = {
+        "masterrev": masterrev,
+        "rev": rev,
+        "stage0_expt": stage0_expt,
+        "flags_only": flags_only == "True",
+        "clean": clean == "True",
+        "parent_tree": parent_tree,
+        "stage0_parent": builds[rev].get(parent_tree),
+        "good": False,
+        "stage0_alt_src": None,
+        "stage0_alt": None,
+    }
+
+    if stage0_parent == stage0_expt:
+        data["good"] = True
+
+    if stage0_parent is None:
+        to_run.append((rev, parent_tree))
+
+    revdata.append(data)
+
+# try to replace from bottom to top
+stage0_current = None
+for i in reversed(range(len(revdata))):
+    rev = revdata[i]["rev"]
+    if stage0_current is not None:
+        if revdata[i]["parent_tree"] != stage0_current:
+            revdata[i]["stage0_alt_src"] = stage0_current
+            revdata[i]["stage0_alt"] = builds[rev].get(stage0_current)
+            if revdata[i]["stage0_alt"] == revdata[i]["stage0_expt"]:
+                revdata[i]["good"] = True
+
+    if revdata[i]["stage0_alt"] is not None and revdata[i]["stage0_alt"] != "failed":
+        stage0_current = revdata[i]["stage0_alt"]
+    elif revdata[i]["stage0_parent"] is not None and revdata[i]["stage0_parent"] != "failed":
+        stage0_current = revdata[i]["stage0_parent"]
+    else:
+        stage0_current = revdata[i]["stage0_expt"]
 
 print('''
     <!doctype html>
@@ -38,60 +86,87 @@ print('''
     <tr>
     <th>status</th>
     <th>rev</th>
-    <th>expt. stage0</th>
-    <th>repr. stage0</th>
-    <th>built with</th>
+    <th>claim</th>
+    <th>from parent</th>
+    <th>from alt.</th>
     <th>comment</th>
     </tr>
     </thead>
     <tbody>
     ''')
 
-for (rev, expt_tree, before, clean) in digest:
-    status = "?"
-    clas = "unknown"
+def revlink(rev):
+    return  f'''<a href="https://github.com/leanprover/lean4/commit/{rev}">🔗</a>&nbsp;<code>{rev}</code>'''
+
+def tree(t):
+    # return f'''🌲&nbsp;<code>{t}</code>'''
+    return f'''<code>{t}</code>'''
+
+for d in revdata:
+    status = "✓" if d["good"] else "?"
+    clas = "good" if d["good"] else "boring" if d["flags_only"] else "unknown"
     repr_tree = "?"
     built_with = "?"
     comment = ""
 
-    if before:
-        status = "…"
-        clas = "boring"
-        repr_tree = expt_tree
-        built_with = before
-        comment = f"(stdlib_flags.h only)"
-    else:
-        if rev in naive:
-            (built_with, repr_tree) = naive[rev]
-            if repr_tree == "failed":
-                status = "☹"
-                built_with = ""
-                comment = "(rebootstrap failed)"
-            elif repr_tree == expt_tree:
-                status = "✓"
-                clas = "good"
-                comment = "(rebootstrap succeeded)"
-            else:
-                status = "😕"
-                comment = "(rebootstrap differs)"
-
-        if clean != "true":
-            status += " <span title=\"non-stage0 chnages in commit\">⚠</a>"
+    if d['masterrev'] != d['rev']:
+        status += " <span title=\"manual replacement\">⮌</a>"
+    if d['flags_only']:
+        status += " <span title=\"stdflags.h update\">🏁</a>"
+    if not d['clean']:
+        status += " <span title=\"non-stage0 changes in commit\">⚠</a>"
 
     print(f'''
     <tr class="{clas}">
     <td>{status}</td>
-    <td><a href="https://github.com/leanprover/lean4/commit/{rev}"><code>{rev}</code></a></td>
-    <td><code>{expt_tree}</code></td>
-    <td><code>{repr_tree}</code></td>
-    <td><code>{built_with}</code></td>
-    <td>{comment}</td>
+    <td>{revlink(d['rev'])}''')
+    if d['masterrev'] != d['rev']:
+        print(f'''&nbsp;({revlink(d['masterrev'])})''')
+    print(f'''</td>
+    <td>{tree(d['stage0_expt'])}</td>
+    ''')
+
+    print(f'''<td>{tree(d['parent_tree'])} ⟹ ''')
+    if d['stage0_parent'] is None:
+        print(f'''<span title="build pending">⌛</span>''')
+    elif d['stage0_parent'] == "failed":
+        print(f'''<span title="build failed">☹</span>''')
+    elif d['stage0_expt'] == d['stage0_parent']:
+        print(f'''<span title="as claimed">✔</span>''')
+    else:
+        print(f'''{tree(d['stage0_parent'])}''')
+    print(f'''</td>''')
+
+    if d.get('stage0_alt_src') is None:
+        print(f'''<td />''')
+    else:
+        print(f'''<td>{tree(d['stage0_alt_src'])} ⟹ ''')
+
+        if d.get('stage0_alt') is None:
+            print(f'''<span title="build pending">⌛</span>''')
+        elif d['stage0_alt'] == "failed":
+            print(f'''<span title="build failed">☹</span>''')
+        elif d['stage0_expt'] == d['stage0_alt']:
+            print(f'''<span title="as claimed">✔</span>''')
+        else:
+            print(f'''{tree(d['stage0_alt'])}''')
+        print(f'''</td>''')
+        
+    print(f'''
+    <td/>
     </tr>
     ''')
 
 print('''
     </tbody>
     </table>
+    <h3>Next steps</h3>
+    <pre>
+''')
+for (rev, tree) in to_run:
+    print(f"./with-nix.sh {rev} {tree}")
+print('''
+    </pre>
     </div>
     </main>
     </body>
