@@ -25,16 +25,19 @@ def is_clean(rev):
 def main():
     for realrev in bad_squashes.values():
         git(f"git -C lean4 fetch origin {realrev}")
-    for rev in git_log("master -- stage0"):
+    
+    todo = git_log("master -- stage0")
+    while todo:
+        rev = todo.pop(0)
         if rev in bad_squashes:
-            subrevs = git_log(f"{rev}^..{bad_squashes[rev]} -- stage0")
+            todo = git_log(f"{bad_squashes[rev]} -- stage0")
+            realrev = todo.pop(0)
         else:
-            subrevs = [rev]
-        for subrev in subrevs:
-            tree_hash = get_tree_hash(subrev)
-            flags_only = is_flags_only(subrev)
-            clean = flags_only or is_clean(subrev)
-            print(f"{rev},{subrev},{tree_hash},{flags_only},{clean}")
+            realrev = rev
+        tree_hash = get_tree_hash(realrev)
+        flags_only = is_flags_only(realrev)
+        clean = flags_only or is_clean(realrev)
+        print(f"{rev},{realrev},{tree_hash},{flags_only},{clean}")
 
 if __name__ == "__main__":
     main()

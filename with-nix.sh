@@ -22,24 +22,31 @@ rev=$(git rev-parse --short "$revspec")
 git -c advice.detachedHead=false checkout -f "$rev"
 git reset --hard
 
-if [ -n "$treespec" ]
+if [ -z "$treespec" ]
 then
-  git rm -rf --quiet stage0
-  git read-tree --prefix stage0 "$treespec"
-  git restore stage0
-fi
+  treespec=$(git rev-parse --short $(git write-tree --prefix=stage0))
+fi    
+
+git rm -rf --quiet stage0
+git read-tree --prefix stage0 "$treespec"
+git restore stage0
 before=$(git rev-parse --short $(git write-tree --prefix=stage0)) # use tree, not HEAD
-if [ -n "$treespec" ]
+
+if [ "$(git diff --name-only $rev^..$rev -- stage0)" = "stage0/src/stdlib_flags.h" ]
 then
-  git checkout HEAD -- stage0/src/stdlib_flags.h
+  # just a flag update, do not build anything, just apply this to the given tree
+  git checkout "$rev" -- stage0/src/stdlib_flags.h
+  after=$(git rev-parse --short $(git write-tree --prefix=stage0)) # use tree, not HEAD
+else
+  git checkout HEAD -- stage0/src/lean.mk.in
   # we want update-stage0-commit not fail due to an empty commit
   git reset --soft 4f5cafdebfa02c041f4dcd8c2ebe3e463bf32343
-fi
 
-after=failed
-if nix --substituters https://cache.nixos.org/ run .#update-stage0-commit
-then
-  after=$(git rev-parse --short $(git write-tree --prefix=stage0)) # use tree, not HEAD
+  after=failed
+  if nix --substituters https://cache.nixos.org/ run .#update-stage0-commit
+  then
+    after=$(git rev-parse --short $(git write-tree --prefix=stage0)) # use tree, not HEAD
+  fi
 fi
 cd ..
 echo "$rev,$before,$after" >> with-nix.log
