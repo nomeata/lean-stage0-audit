@@ -11,7 +11,7 @@ fi
 revspec="$1"
 treespec="$2"
 
-test -e with-nix.sh ||
+test -e build.sh ||
   ( echo "Please run this script from the root of the repository" && exit 1 )
 
 test -d lean4 || git clone --single-branch https://github.com/leanprover/lean4 lean4
