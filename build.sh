@@ -49,4 +49,4 @@ else
   fi
 fi
 cd ..
-echo "$rev,$before,$after" >> with-nix.log
+echo "$rev,$before,$after" >> builds.csv

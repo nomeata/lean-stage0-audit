@@ -141,9 +141,70 @@ print('''
 
     <h2>Methodology</h2>
 
+    <ol>
+    <li>
+      The history of <code>stage0</code>-affecting commits is collected (<code>enum-hashes.py</code>).
+    </li>
+    <li>
+      For each of these commits, the content of <code>stage0</code> is identified (we use the git tree object hash).
+    </li>
+    <li>
+      For each such commit, we try to reproduce the <code>stage0</code> directory by replacing that directory by
+      the previous <code>stage0</code> content and running <code>nix run .#update-stage0-commit</code>.
+    </li>
+    <li>
+      If this does not reproduce the <code>stage0</code> content, we try to construct an
+      “alternative history” where we try to bootstrap the next commit using that code, and so on,
+      until it eventually hopefully leads to an “official” stage0 directory again. 
+    </li>
+    <li>
+      Special support exists for <code>stage0/src/stdlibs.h</code> handling: When reproducing such a
+      commit, nothing is built, but we just copy that file.
+    </li>
+    <li>
+      The file <code>bad-squashes.csv</code> implements a form of commit grafting: It maps commits
+      on master to alternative commits to use in their stead (e.g. from a feature branch, or
+      possibly commits created purely for the purpose of this tool.)
+    </li>
+    <li>
+      The file <code>builds.csv</code> records “input commit”, “stage0 used”, “stage0 produced” triples.
+    </li>
+    </ol>
+
     <h2>Legend</h2>
 
+    <ul>
+      <li>rev: stage0 changing commit. If this is a grafted commit, original commit in parentheses.</li>
+      <li>claim: stage0 as recorded in the commit</li>
+      <li>from parent: stage0 of parent and, after ⟹, result of building a new stage0.</li>
+      <li>from alt.: stage0 of parent in the “alternative history” and, after ⟹, result of building a new stage0.</li>
+      <li>✓: produces same stage0 as claimed </li>
+      <li>failed: build attempted but failed</li>
+      <li>⌛: build not attepmted yet</li>
+      <li>🏁: only stdflags.h is changed</li>
+      <li>⚠: commit mixes stage0 and other changes</li>
+      <li>⚠: commit was replaced by another commit</li>
+      <li>red cell: this is the beginning of a chain of reproduced stage0</li>
+      <li>green cell: this stage0 is can be tracted to an earlier version</li>
+    </ul>
 
+    <h2>Todo/Help</h2>
+
+    <p>This is a side project of Joachim Breitner, working on it on and off, so some things are
+    obviously missing. Help welcome.<p>
+    <ul>
+    <li>Automate attempting builds and rebuilding this status page on Github Actions.</li>
+    <li>Storing the stage0 directories that we produced and that are no on the official repository in some fork.</li>
+    <li>Investigate the red, trying to reproduce its stage0 (or a later one) using an earlier one.</li>
+    </ul>
+    <p>
+    In particular with the last point help is welcome. Check out the a commit with a red cell and
+    see if you can build it with a green stage0 from before. Any changes to the code outside stage0
+    to achieve that is ok, and it can be multiple commits. Reach out to Joachim Breitner on Zulip if
+    you have someting to share.
+    </p>
+
+    <h2>The audit</h2>
 
     <div style="overflow-x:auto">
     <table>
@@ -234,7 +295,7 @@ for d in revdata:
 print('''
     </tbody>
     </table>
-    <h3>Next steps</h3>
+    <h2>Next steps</h2>
     <pre>
 ''')
 for (rev, tree) in to_run[:20]:
