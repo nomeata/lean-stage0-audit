@@ -24,8 +24,8 @@ def is_clean(rev):
 
 def main():
     for realrev in bad_squashes.values():
-        git(f"git -C lean4 fetch origin {realrev}")
-    
+        git(f"git cat-file -e {realrev} || git -C lean4 fetch origin {realrev}")
+
     todo = git_log("master -- stage0")
     while todo:
         rev = todo.pop(0)
