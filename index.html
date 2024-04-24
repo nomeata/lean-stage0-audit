@@ -113,7 +113,7 @@
       <li>⌛: build not attepmted yet</li>
       <li>🏁: only stdflags.h is changed</li>
       <li>⚠: commit mixes stage0 and other changes</li>
-      <li>⚠: commit was replaced by another commit</li>
+      <li>⮌: commit was replaced by another commit</li>
       <li>red cell: this is the beginning of a chain of reproduced stage0</li>
       <li>green cell: this stage0 is can be tracted to an earlier version</li>
     </ul>
@@ -241,7 +241,10 @@
 <code>1eb6980fcd</code> ⟹ 
 <span title="build failed">☹</span>
 </td>
-<td />
+<td >
+<code>9ccf6ae119</code> ⟹ 
+<span title="build failed">☹</span>
+</td>
 
     <td/>
     </tr>
@@ -251,13 +254,16 @@
     <td> <span title="stdflags.h update">🏁</a></td>
     <td><a href="https://github.com/leanprover/lean4/commit/eef928b98d">🔗</a>&nbsp;<code>eef928b98d</code>
 </td>
-    <td class="root"><code>1eb6980fcd</code></td>
+    <td ><code>1eb6980fcd</code></td>
     
 <td >
 <code>4b4cf6677b</code> ⟹ 
-<span title="build pending">⌛</span>
+<span title="as claimed">✔</span>
 </td>
-<td />
+<td class="derived">
+<code>e4275f419a</code> ⟹ 
+<code>9ccf6ae119</code>
+</td>
 
     <td/>
     </tr>
@@ -267,11 +273,11 @@
     <td> <span title="non-stage0 changes in commit">⚠</a></td>
     <td><a href="https://github.com/leanprover/lean4/commit/ecf0459122">🔗</a>&nbsp;<code>ecf0459122</code>
 </td>
-    <td class="root"><code>4b4cf6677b</code></td>
+    <td ><code>4b4cf6677b</code></td>
     
-<td >
+<td class="derived">
 <code>c183c002f3</code> ⟹ 
-<span title="build pending">⌛</span>
+<code>e4275f419a</code>
 </td>
 <td />
 
@@ -29504,8 +29510,6 @@
     <h2>Next steps</h2>
     <pre>
 
-./build.sh eef928b98d 4b4cf6677b
-./build.sh ecf0459122 c183c002f3
 ./build.sh 46df6142a6 d4b911edcd
 ./build.sh 6e821de11a 4fab1891a5
 ./build.sh 71cfbb26de 7c9aec514b
@@ -29524,10 +29528,12 @@
 ./build.sh 271ae5b8e5 eb20a15195
 ./build.sh 5a95f91fae 17bd3de896
 ./build.sh 144c1bbbaf 5d6e68fa43
+./build.sh 329e00661a 705e6cd969
+./build.sh 488bfe2128 ecdb849c30
 
     </pre>
 
-<p>(And 1767 more.)</p>
+<p>(And 1765 more.)</p>
 
     </div>
     </main>

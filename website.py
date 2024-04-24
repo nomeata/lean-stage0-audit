@@ -185,7 +185,7 @@ print('''
       <li>⌛: build not attepmted yet</li>
       <li>🏁: only stdflags.h is changed</li>
       <li>⚠: commit mixes stage0 and other changes</li>
-      <li>⚠: commit was replaced by another commit</li>
+      <li>⮌: commit was replaced by another commit</li>
       <li>red cell: this is the beginning of a chain of reproduced stage0</li>
       <li>green cell: this stage0 is can be tracted to an earlier version</li>
     </ul>
