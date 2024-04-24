@@ -37,6 +37,11 @@ then
   # just a flag update, do not build anything, just apply this to the given tree
   git checkout "$rev" -- stage0/src/stdlib_flags.h
   after=$(git rev-parse --short $(git write-tree --prefix=stage0)) # use tree, not HEAD
+elif [ "$(git diff --name-only $rev^..$rev -- stage0)" = "stage0/src/lean.mk.in" ]
+then
+  # just a make file update, do not build anything, just apply this to the given tree
+  git checkout "$rev" -- stage0/src/lean.mk.in
+  after=$(git rev-parse --short $(git write-tree --prefix=stage0)) # use tree, not HEAD
 else
   git checkout HEAD -- stage0/src/lean.mk.in
   # we want update-stage0-commit not fail due to an empty commit
