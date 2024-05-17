@@ -7,6 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - name: Setup git user
+      run: |
+          git config --global user.name "Lean stage0 auditor"
+          git config --global user.email "<>"
     - run: git clone --single-branch https://github.com/leanprover/lean4 lean4
     - name: Install Nix
       uses: DeterminateSystems/nix-installer-action@main
