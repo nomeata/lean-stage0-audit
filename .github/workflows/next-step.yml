@@ -7,8 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - run: git clone --single-branch https://github.com/leanprover/lean4 lean4
     - name: Install Nix
       uses: DeterminateSystems/nix-installer-action@main
+    - run: ./enum-hashes.py > repo-digest.csv
     - run: ./website.py > index.html
     - name: Determine what to do
       run: echo "command=$(cat next-step.sh)" >> "$GITHUB_ENV"
