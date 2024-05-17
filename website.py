@@ -72,7 +72,7 @@ for i in reversed(range(len(revdata))):
 
 
 for rev, tree in to_run[:1]:
-    open("next-step.sh","w").write(f"./build.sh {rev} {tree}\\n")
+    open("next-step.sh","w").write(f"./build.sh {rev} {tree}\n")
 
 
 print('''
