@@ -15,5 +15,6 @@ jobs:
     - run: "${{ env.command }}"
     - run: ./website.py > index.html
     - run: git commit -a -m 'Github run of ${{ env.command }}'
+    - run: git pull --rebase
     - run: git push
 
