@@ -70,6 +70,11 @@ for i in reversed(range(len(revdata))):
         roots.add(next)
     stage0_current = next
 
+
+for rev, tree in to_run[:1]:
+    open("next-step.sh","w").write(f"./build.sh {rev} {tree}\\n")
+
+
 print('''
     <!doctype html>
     <html lang="en">
