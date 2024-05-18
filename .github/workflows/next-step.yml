@@ -25,5 +25,6 @@ jobs:
     - run: ./website.py > index.html
     - run: git commit -a -m 'Github run of ${{ env.command }}'
     - run: git pull --rebase
-    - run: git push origin master 'refs/stage0/*:refs/stage0/*'
+    - run: git push origin 'refs/stage0/*:refs/stage0/*'
+    - run: git push origin master
 
