@@ -53,5 +53,8 @@ else
     after=$(git rev-parse --short $(git write-tree --prefix=stage0)) # use tree, not HEAD
   fi
 fi
+# store stage0 in lean-stage0-audit repo, in case it is a stage0 that is not available
+# upstream
+git push .. $after:refs/stage0/$after
 cd ..
 echo "$rev,$before,$after" >> builds.csv
