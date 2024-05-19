@@ -106,7 +106,7 @@ print('''
     <p>
     Lean is a self-hosting compiler, written in Lean, and compiling Lean to C. Therefore, the lean4
     repository contains a copy of the C files of the compiler itself (in the <code>stage0/</code>
-    directory), so that developers have something to start with. 
+    directory), so that developers have something to start with.
     </p>
     <p>
       Every now and then, this copy is updated with the output of compiling the current Lean sources.
@@ -162,7 +162,7 @@ print('''
     <li>
       If this does not reproduce the <code>stage0</code> content, we try to construct an
       “alternative history” where we try to bootstrap the next commit using that code, and so on,
-      until it eventually hopefully leads to an “official” stage0 directory again. 
+      until it eventually hopefully leads to an “official” stage0 directory again.
     </li>
     <li>
       Special support exists for <code>stage0/src/stdlibs.h</code> handling: When reproducing such a
@@ -171,10 +171,19 @@ print('''
     <li>
       The file <code>bad-squashes.csv</code> implements a form of commit grafting: It maps commits
       on master to alternative commits to use in their stead (e.g. from a feature branch, or
-      possibly commits created purely for the purpose of this tool.)
+      possibly commits created purely for the purpose of this audit).
     </li>
     <li>
       The file <code>builds.csv</code> records “input commit”, “stage0 used”, “stage0 produced” triples.
+    </li>
+    <li>
+      The produced <code>stage0/</code> trees, which may not exist as such in the main lean4 repository,
+      are stored in this git repository under <code>refs/stage0/&lt;short tree hash&gt;</code>. This allows
+      the reproduction of each individual step even in a long “alternative” chain.
+    </li>
+    <li>
+      A scheduled github action is auditing new commits, and also (slowly) goes
+      back further through the project history.
     </li>
     </ol>
 
@@ -198,17 +207,16 @@ print('''
     <h2>Todo/Help</h2>
 
     <p>This is a side project of Joachim Breitner, working on it on and off, so some things are
-    obviously missing. Help welcome.<p>
-    <ul>
-    <li>Automate attempting builds and rebuilding this status page on Github Actions.</li>
-    <li>Storing the stage0 directories that we produced and that are no on the official repository in some fork.</li>
-    <li>Investigate the red, trying to reproduce its stage0 (or a later one) using an earlier one.</li>
-    </ul>
+    obviously missing. Help welcome.
+    </p>
     <p>
-    In particular with the last point help is welcome. Check out the a commit with a red cell and
+    In particular you can push back the beginning of reproducibility: If there is a row with a
+    red cell in the table blow, Check out the a commit with a red cell and
     see if you can build it with a green stage0 from before. Any changes to the code outside stage0
-    to achieve that is ok, and it can be multiple commits. Reach out to Joachim Breitner on Zulip if
-    you have someting to share.
+    to achieve that is ok, and it can be multiple commits.
+    </p>
+    <p>
+    Reach out to Joachim Breitner on Zulip if you have questions or new results.
     </p>
 
     <h2>The audit</h2>
