@@ -25,7 +25,7 @@ git reset --hard
 if [ -z "$treespec" ]
 then
   treespec=$(git rev-parse --short $(git write-tree --prefix=stage0))
-fi    
+fi
 
 git rm -rf --quiet stage0
 git read-tree --prefix stage0 "$treespec"
@@ -58,4 +58,4 @@ else
   fi
 fi
 cd ..
-echo "$rev,$before,$after" >> builds.csv
+echo "$rev,$before,$after,$LOGURL" >> builds.csv

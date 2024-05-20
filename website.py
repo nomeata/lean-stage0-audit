@@ -7,8 +7,10 @@ digest = list(csv.reader(open('repo-digest.csv', 'r')))
 with_nix = csv.reader(open('builds.csv', 'r'))
 
 builds = defaultdict(dict)
-for (rev, before, tree) in with_nix:
+urls = defaultdict(dict)
+for (rev, before, tree, url) in with_nix:
     builds[rev][before] = tree
+    urls[rev][before] = url
 
 revdata = []
 to_run = []
@@ -195,7 +197,7 @@ print('''
       <li>from parent: stage0 of parent and, after ⟹, result of building a new stage0.</li>
       <li>from alt.: stage0 of parent in the “alternative history” and, after ⟹, result of building a new stage0.</li>
       <li>✓: produces same stage0 as claimed </li>
-      <li>failed: build attempted but failed</li>
+      <li>☹: build attempted but failed (may link to build log)</li>
       <li>⌛: build not attepmted yet</li>
       <li>🏁: only stdflags.h is changed</li>
       <li>⚠: commit mixes stage0 and other changes</li>
@@ -279,7 +281,10 @@ for d in revdata:
     if d['stage0_parent'] is None:
         print(f'''<span title="build pending">⌛</span>''')
     elif d['stage0_parent'] == "failed":
-        print(f'''<span title="build failed">☹</span>''')
+        if d['parent_tree'] in urls[d['rev']]:
+            print(f'''<a href="{urls[d["rev"]][d["parent_tree"]]}" title="build failed">☹</a>''')
+        else:
+            print(f'''<span title="build failed">☹</span>''')
     elif d['stage0_expt'] == d['stage0_parent']:
         print(f'''<span title="as claimed">✔</span>''')
     else:
@@ -295,13 +300,16 @@ for d in revdata:
         if d.get('stage0_alt') is None:
             print(f'''<span title="build pending">⌛</span>''')
         elif d['stage0_alt'] == "failed":
-            print(f'''<span title="build failed">☹</span>''')
+            if d['stage0_alt_src'] in urls[d['rev']]:
+                print(f'''<a href="{urls[d["rev"]][d["stage0_alt_src"]]}" title="build failed">☹</a>''')
+            else:
+                print(f'''<span title="build failed">☹</span>''')
         elif d['stage0_expt'] == d['stage0_alt']:
             print(f'''<span title="as claimed">✔</span>''')
         else:
             print(f'''{tree(d['stage0_alt'])}''')
         print(f'''</td>''')
-        
+
     print(f'''
     <td/>
     </tr>
