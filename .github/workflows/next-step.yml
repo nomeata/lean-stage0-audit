@@ -23,7 +23,7 @@ jobs:
       run: echo "command=$(cat next-step.sh)" >> "$GITHUB_ENV"
     - run: "${{ env.command }}"
       env:
-        LOGURL: "https://github.com/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}"
+        LOGURL: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
     - run: ./website.py > index.html
     - run: git commit -a -m 'Github run of ${{ env.command }}'
     - run: git pull --rebase
