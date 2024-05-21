@@ -97,7 +97,7 @@
       possibly commits created purely for the purpose of this audit).
     </li>
     <li>
-      The file <code>builds.csv</code> records “input commit”, “stage0 used”, “stage0 produced” triples.
+      The file <code>builds.csv</code> records “input commit”, “stage0 used”, “stage0 produced (or `failed`)”, “log url” tuples.
     </li>
     <li>
       The produced <code>stage0/</code> trees, which may not exist as such in the main lean4 repository,
@@ -1460,7 +1460,7 @@
     
 <td >
 <code>f6df5d5219</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9165300875" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -1654,14 +1654,11 @@
 </td>
     <td ><code>d17eac89d3</code></td>
     
-<td >
+<td class="derived">
 <code>42da06501e</code> ⟹ 
 <span title="as claimed">✔</span>
 </td>
-<td class="derived">
-<code>b6faa2f216</code> ⟹ 
-<span title="as claimed">✔</span>
-</td>
+<td />
 
     <td/>
     </tr>
@@ -1671,11 +1668,11 @@
     <td></td>
     <td><a href="https://github.com/leanprover/lean4/commit/7c10415cd8">🔗</a>&nbsp;<code>7c10415cd8</code>
 </td>
-    <td ><code>42da06501e</code></td>
+    <td class="root"><code>42da06501e</code></td>
     
-<td class="root">
+<td >
 <code>f9f98a56bf</code> ⟹ 
-<code>b6faa2f216</code>
+<span title="build pending">⌛</span>
 </td>
 <td >
 <code>b396312a7a</code> ⟹ 
@@ -1694,7 +1691,7 @@
     
 <td >
 <code>579c436a19</code> ⟹ 
-<span title="as claimed">✔</span>
+<span title="build pending">⌛</span>
 </td>
 <td class="derived">
 <code>832d759601</code> ⟹ 
@@ -29727,6 +29724,9 @@
     <pre>
 
 ./build.sh 7c10415cd8 b396312a7a
+./build.sh 22841844a7 f6df5d5219
+./build.sh 7c10415cd8 f9f98a56bf
+./build.sh b5122b6a7b 579c436a19
 ./build.sh 610fa69f15 817260c934
 ./build.sh 0bc8fe48e3 d2a29d7832
 ./build.sh 88801166b6 516b2c1db6
@@ -29743,13 +29743,10 @@
 ./build.sh 3025a4a9a1 edecc183fb
 ./build.sh 79251f5fa2 e07e289b7e
 ./build.sh 0adca630cc fe6df5323a
-./build.sh 37362658ab fe89525eee
-./build.sh 4bd0525a99 ef8379288a
-./build.sh 262f213391 23205a5da0
 
     </pre>
 
-<p>(And 1731 more.)</p>
+<p>(And 1734 more.)</p>
 
     </div>
     </main>
