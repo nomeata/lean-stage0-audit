@@ -176,7 +176,7 @@ print('''
       possibly commits created purely for the purpose of this audit).
     </li>
     <li>
-      The file <code>builds.csv</code> records “input commit”, “stage0 used”, “stage0 produced” triples.
+      The file <code>builds.csv</code> records “input commit”, “stage0 used”, “stage0 produced (or `failed`)”, “log url” tuples.
     </li>
     <li>
       The produced <code>stage0/</code> trees, which may not exist as such in the main lean4 repository,

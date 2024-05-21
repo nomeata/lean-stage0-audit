@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-set -eo pipefail globstar
+set -e -o pipefail
+shopt -s globstar
 
 # the first argument should be a git revision
 if [ -z "$1" ]; then
@@ -17,15 +18,19 @@ test -e build.sh ||
 test -d lean4 || git clone --single-branch https://github.com/leanprover/lean4 lean4
 cd lean4
 
+echo -n "Revision: "
+git rev-parse --short "$revspec"
 rev=$(git rev-parse --short "$revspec")
 
-git -c advice.detachedHead=false checkout -f "$rev"
-git reset --hard
+git reset --hard "$rev"
 
 if [ -z "$treespec" ]
 then
   treespec=$(git rev-parse --short $(git write-tree --prefix=stage0))
 fi
+
+echo -n "Tree: "
+git rev-parse --short "$treespec^{tree}"
 
 git rm -rf --quiet stage0
 git read-tree --prefix stage0 "$treespec"
