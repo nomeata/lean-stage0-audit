@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eo pipefail
+set -eo pipefail globstar
 
 # the first argument should be a git revision
 if [ -z "$1" ]; then
@@ -46,6 +46,10 @@ else
   git checkout HEAD -- stage0/src/lean.mk.in
   # we want update-stage0-commit not fail due to an empty commit
   git reset --soft 4f5cafdebfa02c041f4dcd8c2ebe3e463bf32343
+
+  # some devs use #exit during bootstrapping, and maybe it does't fail the make
+  # based update stage0, but it fails the nix one, so let's remove this
+  sed -i -n '/^#exit/q;p' src/**/*.lean
 
   after=failed
   if nix --substituters https://cache.nixos.org/ run .#update-stage0-commit
