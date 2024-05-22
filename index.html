@@ -105,8 +105,8 @@
       the reproduction of each individual step even in a long “alternative” chain.
     </li>
     <li>
-      A scheduled github action is auditing new commits, and also (slowly) goes
-      back further through the project history.
+      A <a href="https://github.com/nomeata/lean-stage0-audit/actions/workflows/next-step.yml">scheduled Github action</a>
+      is auditing new commits, and also (slowly) goes back further through the project history.
     </li>
     </ol>
 
@@ -2084,27 +2084,31 @@
     <td></td>
     <td><a href="https://github.com/leanprover/lean4/commit/59d3b3d85a">🔗</a>&nbsp;<code>59d3b3d85a</code>
 </td>
-    <td ><code>23205a5da0</code></td>
+    <td class="root"><code>23205a5da0</code></td>
     
-<td class="derived">
+<td class="root">
 <code>f0651ee9d3</code> ⟹ 
 <span title="as claimed">✔</span>
 </td>
-<td />
+<td >
+<code>60afb9eac7</code> ⟹ 
+<span title="build pending">⌛</span>
+</td>
 
     <td/>
     </tr>
     
 
     <tr>
-    <td> <span title="non-stage0 changes in commit">⚠</a></td>
-    <td><a href="https://github.com/leanprover/lean4/commit/cfe5a5f188">🔗</a>&nbsp;<code>cfe5a5f188</code>
+    <td> <span title="manual replacement">⮌</a></td>
+    <td><a href="https://github.com/leanprover/lean4/commit/05669221d4">🔗</a>&nbsp;<code>05669221d4</code>
+&nbsp;(<a href="https://github.com/leanprover/lean4/commit/cfe5a5f188">🔗</a>&nbsp;<code>cfe5a5f188</code>)
 </td>
-    <td class="root"><code>f0651ee9d3</code></td>
+    <td ><code>f0651ee9d3</code></td>
     
-<td >
+<td class="derived">
 <code>b7eee6a501</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9195155088" title="build failed">☹</a>
+<code>60afb9eac7</code>
 </td>
 <td />
 
@@ -29781,6 +29785,7 @@
     <h2>Next steps</h2>
     <pre>
 
+./build.sh 59d3b3d85a 60afb9eac7
 ./build.sh af301fac55 1eb16d7d79
 ./build.sh a53ec40df1 6f2605ebcd
 ./build.sh 08c47b2d61 88fb21b899
@@ -29800,11 +29805,10 @@
 ./build.sh 26877c42ae 8a957b7a7f
 ./build.sh 19d266e0c5 2a83aab87a
 ./build.sh d5348dfac8 578d34bc0a
-./build.sh 0c624d8023 983a4d92d0
 
     </pre>
 
-<p>(And 1709 more.)</p>
+<p>(And 1710 more.)</p>
 
     </div>
     </main>
