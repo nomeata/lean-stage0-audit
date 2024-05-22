@@ -9,7 +9,9 @@ def git(command):
     return subprocess.check_output(command, shell=True).decode().strip()
 
 def git_log(arg):
-    return git(f"git -C lean4 log --pretty='tformat:%h' --first-parent --topo-order " + arg).split("\n")
+    # rev 2794ae76 introduced the nix-based stage0 update;
+    # ignore older commits until the build.sh script can handle it
+    return git(f"git -C lean4 log --pretty='tformat:%h' --first-parent --topo-order ^2794ae76 " + arg).split("\n")
 
 def get_tree_hash(rev):
     return git(f"git -C lean4 rev-parse --short {rev}:stage0")
@@ -41,19 +43,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# git -C lean4 log --pretty='tformat:%h' --first-parent --topo-order master -- stage0 |
-# while read -r rev ; do
-#     tree=$(git -C lean4 rev-parse --short "$rev":stage0)
-#     flags_only=false
-#     clean=true
-
-#     if [ "$(git -C lean4 diff --name-only "$rev^..$rev" stage0)" = "stage0/src/stdlib_flags.h" ]
-#     then
-#         flags_only=true
-#     elif [ -n "$(git -C lean4 diff --name-only "$rev^..$rev" | grep -v ^stage0)" ]
-#     then
-#         clean=false
-#     fi
-#     echo "$rev,$tree,$flags_only,$clean"
-# done
