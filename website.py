@@ -184,8 +184,8 @@ print('''
       the reproduction of each individual step even in a long “alternative” chain.
     </li>
     <li>
-      A scheduled github action is auditing new commits, and also (slowly) goes
-      back further through the project history.
+      A <a href="https://github.com/nomeata/lean-stage0-audit/actions/workflows/next-step.yml">scheduled Github action</a>
+      is auditing new commits, and also (slowly) goes back further through the project history.
     </li>
     </ol>
 
