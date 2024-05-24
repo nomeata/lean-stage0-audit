@@ -17,7 +17,7 @@ to_run = []
 
 for i in range(len(digest)-1):
     (date, masterrev, rev, stage0_expt, flags_only, clean) = digest[i]
-    parent_tree = digest[i+1][2]
+    parent_tree = digest[i+1][3]
     stage0_parent = builds[rev].get(parent_tree)
 
     data = {
