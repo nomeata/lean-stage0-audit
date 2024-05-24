@@ -11,7 +11,7 @@ def git(command):
 def git_log(arg):
     # rev 2794ae76 introduced the nix-based stage0 update;
     # ignore older commits until the build.sh script can handle it
-    return git(f"git -C lean4 log --pretty='tformat:%h' --first-parent --topo-order ^2794ae76 " + arg).split("\n")
+    return [l.split(";") for l in git(f"git -C lean4 log --pretty='tformat:%h;%cs' --first-parent --topo-order ^2794ae76 " + arg).split("\n")]
 
 def get_tree_hash(rev):
     return git(f"git -C lean4 rev-parse --short {rev}:stage0")
@@ -30,16 +30,16 @@ def main():
 
     todo = git_log("master -- stage0")
     while todo:
-        rev = todo.pop(0)
+        rev, date = todo.pop(0)
         if rev in bad_squashes:
             todo = git_log(f"{bad_squashes[rev]} -- stage0")
-            realrev = todo.pop(0)
+            realrev, date = todo.pop(0)
         else:
             realrev = rev
         tree_hash = get_tree_hash(realrev)
         flags_only = is_flags_only(realrev)
         clean = flags_only or is_clean(realrev)
-        print(f"{rev},{realrev},{tree_hash},{flags_only},{clean}")
+        print(f"{date},{rev},{realrev},{tree_hash},{flags_only},{clean}")
 
 if __name__ == "__main__":
     main()

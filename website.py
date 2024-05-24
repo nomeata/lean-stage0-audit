@@ -16,11 +16,12 @@ revdata = []
 to_run = []
 
 for i in range(len(digest)-1):
-    (masterrev, rev, stage0_expt, flags_only, clean) = digest[i]
+    (date, masterrev, rev, stage0_expt, flags_only, clean) = digest[i]
     parent_tree = digest[i+1][2]
     stage0_parent = builds[rev].get(parent_tree)
 
     data = {
+        "date": date,
         "masterrev": masterrev,
         "rev": rev,
         "stage0_expt": stage0_expt,
@@ -40,8 +41,6 @@ for i in range(len(digest)-1):
         to_run.append((rev, parent_tree))
 
     revdata.append(data)
-
-
 
 # retrace history, remembering root and derived trees
 roots = set()
@@ -72,6 +71,17 @@ for i in reversed(range(len(revdata))):
         roots.add(next)
     stage0_current = next
 
+# find the starting point
+first_rev = None
+first_date = None
+steps = 0
+for r in revdata:
+    if r["stage0_expt"] in derived or r["stage0_alt"] in derived or r["stage0_parent"] in derived:
+        steps += 1
+    else:
+        first_rev = r["rev"]
+        first_date = r["date"]
+        break
 
 for rev, tree in to_run[:1]:
     open("next-step.sh","w").write(f"./build.sh {rev} {tree}\n")
@@ -104,6 +114,13 @@ print('''
     <main class="container">
     <h1>Lean stage0 audit</h1>
 
+    <h2>Current status</h2>
+''')
+print(f'''
+    <p>The current <code>stage0/</code> code copy can be traced to <code>stage0/</code> in <a href="#{first_rev}">revision ✨ <code>{first_rev}</code></a> from {first_date} in {steps} steps.</p>
+''')
+
+print('''
     <h2>Problem</h2>
     <p>
     Lean is a self-hosting compiler, written in Lean, and compiling Lean to C. Therefore, the lean4
@@ -204,6 +221,7 @@ print('''
       <li>⮌: commit was replaced by another commit</li>
       <li>red cell: this is the beginning of a chain of reproduced stage0</li>
       <li>green cell: this stage0 is can be tracted to an earlier version</li>
+      <li>✨: commit to trust to reproduce the latest stage0</li>
     </ul>
 
     <h2>Todo/Help</h2>
@@ -266,9 +284,12 @@ for d in revdata:
     if not d['clean']:
         status += " <span title=\"non-stage0 changes in commit\">⚠</a>"
 
+    if d['rev'] == first_rev:
+        status += "<span title=\"earliest root of trust\">✨</a>"
+
     print(f'''
     <tr>
-    <td>{status}</td>
+    <td><a name="{d['rev']}"/>{status}</td>
     <td>{revlink(d['rev'])}''')
     if d['masterrev'] != d['rev']:
         print(f'''&nbsp;({revlink(d['masterrev'])})''')
