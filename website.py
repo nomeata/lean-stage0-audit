@@ -107,6 +107,8 @@ print('''
     td.root {  background-color: #E33; }
     td { white-space:nowrap; }
     td:last-child { width:100%; }
+
+    summary h2 { display: inline-block };
     </style>
     <title>Lean stage0 audit</title>
     <body>
@@ -121,7 +123,8 @@ print(f'''
 ''')
 
 print('''
-    <h2>Problem</h2>
+    <details>
+    <summary><h2>The Problem</h2></summary>
     <p>
     Lean is a self-hosting compiler, written in Lean, and compiling Lean to C. Therefore, the lean4
     repository contains a copy of the C files of the compiler itself (in the <code>stage0/</code>
@@ -162,8 +165,10 @@ print('''
       update is mixed with the source changes.
       </li>
     </ul>
+    </details>
 
-    <h2>Methodology</h2>
+    <details>
+    <summary><h2>Methodology</h2></summary>
 
     <p>Also see the <a href="https://github.com/nomeata/lean-stage0-audit">Github repo <code>nomeata/lean-stage0-audit</code></a>.</p>
 
@@ -205,8 +210,10 @@ print('''
       is auditing new commits, and also (slowly) goes back further through the project history.
     </li>
     </ol>
+    </details>
 
-    <h2>Legend</h2>
+    <details>
+    <summary><h2>Legend</h2></summary>
 
     <ul>
       <li>rev: stage0 changing commit. If this is a grafted commit, original commit in parentheses.</li>
@@ -223,8 +230,10 @@ print('''
       <li>green cell: this stage0 is can be tracted to an earlier version</li>
       <li>✨: commit to trust to reproduce the latest stage0</li>
     </ul>
+    </details>
 
-    <h2>Todo/Help</h2>
+    <details>
+    <summary><h2>Todo/Help</h2></summary>
 
     <p>This is a side project of Joachim Breitner, working on it on and off, so some things are
     obviously missing. Help welcome.
@@ -238,6 +247,7 @@ print('''
     <p>
     Reach out to Joachim Breitner on Zulip if you have questions or new results.
     </p>
+    </details>
 
     <h2>The audit</h2>
 
