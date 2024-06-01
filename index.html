@@ -30,7 +30,7 @@
     <h2>Current status</h2>
 
 
-    <p>The current <code>stage0/</code> code copy can be traced to <code>stage0/</code> in <a href="#ad4b1796a0">revision ✨ <code>ad4b1796a0</code></a> from 2022-03-06 in 467 steps.</p>
+    <p>The current <code>stage0/</code> code copy can be traced to <code>stage0/</code> in <a href="#3b7ada0b35">revision ✨ <code>3b7ada0b35</code></a> from 2022-03-08 in 466 steps.</p>
 
 
     <details>
@@ -7928,30 +7928,33 @@
     
 
     <tr>
-    <td><a name="3b7ada0b35"/></td>
+    <td><a name="3b7ada0b35"/><span title="earliest root of trust">✨</a></td>
     <td><a href="https://github.com/leanprover/lean4/commit/3b7ada0b35">🔗</a>&nbsp;<code>3b7ada0b35</code>
 </td>
-    <td ><code>ac9981c130</code></td>
+    <td class="root"><code>ac9981c130</code></td>
     
-<td class="derived">
+<td class="root">
 <code>ce52951009</code> ⟹ 
 <span title="as claimed">✔</span>
 </td>
-<td />
+<td >
+<code>8e93b7dcf3</code> ⟹ 
+<span title="build pending">⌛</span>
+</td>
 
     <td/>
     </tr>
     
 
     <tr>
-    <td><a name="ad4b1796a0"/><span title="earliest root of trust">✨</a></td>
+    <td><a name="ad4b1796a0"/></td>
     <td><a href="https://github.com/leanprover/lean4/commit/ad4b1796a0">🔗</a>&nbsp;<code>ad4b1796a0</code>
 </td>
-    <td class="root"><code>ce52951009</code></td>
+    <td ><code>ce52951009</code></td>
     
-<td >
+<td class="derived">
 <code>e41af1dcd3</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9324350550" title="build failed">☹</a>
+<code>8e93b7dcf3</code>
 </td>
 <td />
 
@@ -7967,7 +7970,7 @@
     
 <td >
 <code>5475e36d92</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9324601979" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -7983,7 +7986,7 @@
     
 <td >
 <code>59c48476c1</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9324905145" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -7999,7 +8002,7 @@
     
 <td >
 <code>7f25e3ca1e</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9325120639" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -8015,7 +8018,7 @@
     
 <td >
 <code>3136a105c0</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9325386548" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -8031,7 +8034,7 @@
     
 <td >
 <code>817d405f2f</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9325570150" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -8047,7 +8050,7 @@
     
 <td >
 <code>500fe3ba9f</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9326161242" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -8063,7 +8066,7 @@
     
 <td >
 <code>afbf940420</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9326673901" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -8079,7 +8082,7 @@
     
 <td >
 <code>6f234c6339</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9326909047" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -8095,7 +8098,7 @@
     
 <td >
 <code>a49d1414be</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9327149949" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -8111,7 +8114,7 @@
     
 <td >
 <code>309662f6dd</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9327304937" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -17788,6 +17791,17 @@
     <h2>Next steps</h2>
     <pre>
 
+./build.sh 3b7ada0b35 8e93b7dcf3
+./build.sh 538eee0b6a 5475e36d92
+./build.sh 7462e3ad52 59c48476c1
+./build.sh 0847c59667 7f25e3ca1e
+./build.sh 35c587afbf 3136a105c0
+./build.sh bb2de82cb6 817d405f2f
+./build.sh 5dba98327c 500fe3ba9f
+./build.sh e85abb6292 afbf940420
+./build.sh 0158c2eeb7 6f234c6339
+./build.sh ecca71f0f5 a49d1414be
+./build.sh 998a3de747 309662f6dd
 ./build.sh e8781ad889 3a7a928ada
 ./build.sh 255db2b47d a155b794c5
 ./build.sh e35235eec5 da7e8bb2e0
@@ -17797,21 +17811,10 @@
 ./build.sh 6d07092d1e 86f7e725f6
 ./build.sh d096f59f86 49149b7e21
 ./build.sh 253f3aa5ec a0a5dae49b
-./build.sh 893b816f82 23791ef0cc
-./build.sh 70de6dabb3 9f0c2d299d
-./build.sh 7c0a790774 0cfba1c4cf
-./build.sh 63025663fd 4441553be6
-./build.sh ab5e43acaa a19d4ec93e
-./build.sh 4ac019ccf0 9f2b8d82ce
-./build.sh 35d25dfaaf ead600239c
-./build.sh db9bb8dd1b 277a844cb8
-./build.sh 2c0da66ff2 a914b7b4ac
-./build.sh 05b9240c72 d466918fff
-./build.sh b142f709e1 68049f27ac
 
     </pre>
 
-<p>(And 566 more.)</p>
+<p>(And 577 more.)</p>
 
     </div>
     </main>
