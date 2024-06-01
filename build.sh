@@ -49,6 +49,24 @@ then
   after=$(git rev-parse --short $(git write-tree --prefix=stage0)) # use tree, not HEAD
 else
   git checkout HEAD -- stage0/src/lean.mk.in
+
+  # some cherry-picking later build fixes
+  if git merge-base --is-ancestor 802922ddaf40423f6d4e4aa8fea56f2439d0e448 HEAD &&
+     git merge-base --is-ancestor HEAD ff097e952f7cee75608d4097c3e825a1f650ffe7^
+  then
+    echo "Applying parts of ff097e952f7cee75608d4097c3e825a1f650ffe7"
+    git show ff097e952f7cee75608d4097c3e825a1f650ffe7 -- src/Init.lean|git apply -
+  fi
+
+  # some cherry-picking later build fixes
+  if git merge-base --is-ancestor 137c70f055e6d73f2a074b28faab7373a6fa4710 HEAD &&
+     git merge-base --is-ancestor HEAD ff097e952f7cee75608d4097c3e825a1f650ffe7^
+  then
+    echo "Applying parts of ff097e952f7cee75608d4097c3e825a1f650ffe7"
+    git show ff097e952f7cee75608d4097c3e825a1f650ffe7 -- src/Lean/Meta/Tactic/LinearArith/Nat.lean|git apply -
+  fi
+
+
   # we want update-stage0-commit not fail due to an empty commit
   git reset --soft 4f5cafdebfa02c041f4dcd8c2ebe3e463bf32343
 
