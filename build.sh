@@ -72,6 +72,12 @@ else
     git show 3f636b9f836c86958eb85280314500cdf5e69b32 -- src/Lean/Meta/Tactic/LinearArith.lean|git apply -
   fi
 
+  if git merge-base --is-ancestor 0649e5fa8ac706d864a47c90dd2e643353eb9579 HEAD &&
+     git merge-base --is-ancestor HEAD 4b03666eccad726d459cdb9dd6034f0089f60aaa^
+  then
+    echo "Applying 4b03666eccad726d459cdb9dd6034f0089f60aaa"
+    git show 4b03666eccad726d459cdb9dd6034f0089f60aaa|git apply -
+  fi
 
 
   # we want update-stage0-commit not fail due to an empty commit
