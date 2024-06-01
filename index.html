@@ -30,7 +30,7 @@
     <h2>Current status</h2>
 
 
-    <p>The current <code>stage0/</code> code copy can be traced to <code>stage0/</code> in <a href="#3b7ada0b35">revision ✨ <code>3b7ada0b35</code></a> from 2022-03-08 in 466 steps.</p>
+    <p>The current <code>stage0/</code> code copy can be traced to <code>stage0/</code> in <a href="#538eee0b6a">revision ✨ <code>538eee0b6a</code></a> from 2022-03-03 in 468 steps.</p>
 
 
     <details>
@@ -7928,18 +7928,18 @@
     
 
     <tr>
-    <td><a name="3b7ada0b35"/><span title="earliest root of trust">✨</a></td>
+    <td><a name="3b7ada0b35"/></td>
     <td><a href="https://github.com/leanprover/lean4/commit/3b7ada0b35">🔗</a>&nbsp;<code>3b7ada0b35</code>
 </td>
-    <td class="root"><code>ac9981c130</code></td>
+    <td ><code>ac9981c130</code></td>
     
-<td class="root">
+<td >
 <code>ce52951009</code> ⟹ 
 <span title="as claimed">✔</span>
 </td>
-<td >
+<td class="derived">
 <code>8e93b7dcf3</code> ⟹ 
-<span title="build pending">⌛</span>
+<span title="as claimed">✔</span>
 </td>
 
     <td/>
@@ -7963,7 +7963,7 @@
     
 
     <tr>
-    <td><a name="538eee0b6a"/></td>
+    <td><a name="538eee0b6a"/><span title="earliest root of trust">✨</a></td>
     <td><a href="https://github.com/leanprover/lean4/commit/538eee0b6a">🔗</a>&nbsp;<code>538eee0b6a</code>
 </td>
     <td class="root"><code>e41af1dcd3</code></td>
@@ -8162,7 +8162,7 @@
     
 <td >
 <code>962251864d</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9327816437" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -8178,7 +8178,7 @@
     
 <td >
 <code>782b964633</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9327973007" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -8194,7 +8194,7 @@
     
 <td >
 <code>29be3324f7</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9328169148" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -8322,7 +8322,7 @@
     
 <td >
 <code>9acac8c1c4</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9329486659" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -8338,7 +8338,7 @@
     
 <td >
 <code>f14b5983dd</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9329641915" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -8350,11 +8350,11 @@
     <td><a name="0030208d99"/> <span title="stdflags.h update">🏁</a></td>
     <td><a href="https://github.com/leanprover/lean4/commit/0030208d99">🔗</a>&nbsp;<code>0030208d99</code>
 </td>
-    <td ><code>f14b5983dd</code></td>
+    <td class="root"><code>f14b5983dd</code></td>
     
-<td class="derived">
+<td >
 <code>cdf2241846</code> ⟹ 
-<span title="as claimed">✔</span>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -8370,7 +8370,7 @@
     
 <td >
 <code>10f66d21e0</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9329944198" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -17791,7 +17791,6 @@
     <h2>Next steps</h2>
     <pre>
 
-./build.sh 3b7ada0b35 8e93b7dcf3
 ./build.sh 538eee0b6a 5475e36d92
 ./build.sh 7462e3ad52 59c48476c1
 ./build.sh 0847c59667 7f25e3ca1e
@@ -17802,19 +17801,20 @@
 ./build.sh 0158c2eeb7 6f234c6339
 ./build.sh ecca71f0f5 a49d1414be
 ./build.sh 998a3de747 309662f6dd
+./build.sh 7d8cb84834 962251864d
+./build.sh 0611eb84cc 782b964633
+./build.sh 7480670c6a 29be3324f7
+./build.sh 409530306c 9acac8c1c4
+./build.sh 2a2ad75faa f14b5983dd
+./build.sh 0030208d99 cdf2241846
+./build.sh a0fb412989 10f66d21e0
 ./build.sh e8781ad889 3a7a928ada
 ./build.sh 255db2b47d a155b794c5
 ./build.sh e35235eec5 da7e8bb2e0
-./build.sh 7f0060b214 9288cda908
-./build.sh 95aec2cf93 16986d3fa4
-./build.sh 00f59a91ee ae05d56908
-./build.sh 6d07092d1e 86f7e725f6
-./build.sh d096f59f86 49149b7e21
-./build.sh 253f3aa5ec a0a5dae49b
 
     </pre>
 
-<p>(And 577 more.)</p>
+<p>(And 583 more.)</p>
 
     </div>
     </main>
