@@ -58,13 +58,20 @@ else
     git show ff097e952f7cee75608d4097c3e825a1f650ffe7 -- src/Init.lean|git apply -
   fi
 
-  # some cherry-picking later build fixes
   if git merge-base --is-ancestor 137c70f055e6d73f2a074b28faab7373a6fa4710 HEAD &&
      git merge-base --is-ancestor HEAD ff097e952f7cee75608d4097c3e825a1f650ffe7^
   then
     echo "Applying parts of ff097e952f7cee75608d4097c3e825a1f650ffe7"
     git show ff097e952f7cee75608d4097c3e825a1f650ffe7 -- src/Lean/Meta/Tactic/LinearArith/Nat.lean|git apply -
   fi
+
+  if git merge-base --is-ancestor f7f04483b17a8459f1a7ef5ab7fa5bd5096b7660 HEAD &&
+     git merge-base --is-ancestor HEAD 3f636b9f836c86958eb85280314500cdf5e69b32^
+  then
+    echo "Applying parts of 3f636b9f836c86958eb85280314500cdf5e69b32"
+    git show 3f636b9f836c86958eb85280314500cdf5e69b32 -- src/Lean/Meta/Tactic/LinearArith.lean|git apply -
+  fi
+
 
 
   # we want update-stage0-commit not fail due to an empty commit
