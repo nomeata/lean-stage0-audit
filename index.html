@@ -30,7 +30,7 @@
     <h2>Current status</h2>
 
 
-    <p>The current <code>stage0/</code> code copy can be traced to <code>stage0/</code> in <a href="#409530306c">revision ✨ <code>409530306c</code></a> from 2022-02-14 in 490 steps.</p>
+    <p>The current <code>stage0/</code> code copy can be traced to <code>stage0/</code> in <a href="#2435119e6a">revision ✨ <code>2435119e6a</code></a> from 2022-02-15 in 489 steps.</p>
 
 
     <details>
@@ -8338,30 +8338,33 @@
     
 
     <tr>
-    <td><a name="2435119e6a"/></td>
+    <td><a name="2435119e6a"/><span title="earliest root of trust">✨</a></td>
     <td><a href="https://github.com/leanprover/lean4/commit/2435119e6a">🔗</a>&nbsp;<code>2435119e6a</code>
 </td>
-    <td ><code>7119cf0a0d</code></td>
+    <td class="root"><code>7119cf0a0d</code></td>
     
-<td class="derived">
+<td class="root">
 <code>de8dc75847</code> ⟹ 
 <span title="as claimed">✔</span>
 </td>
-<td />
+<td >
+<code>69521d434b</code> ⟹ 
+<span title="build pending">⌛</span>
+</td>
 
     <td/>
     </tr>
     
 
     <tr>
-    <td><a name="409530306c"/><span title="earliest root of trust">✨</a></td>
+    <td><a name="409530306c"/></td>
     <td><a href="https://github.com/leanprover/lean4/commit/409530306c">🔗</a>&nbsp;<code>409530306c</code>
 </td>
-    <td class="root"><code>de8dc75847</code></td>
+    <td ><code>de8dc75847</code></td>
     
-<td >
+<td class="derived">
 <code>9acac8c1c4</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9335542442" title="build failed">☹</a>
+<code>69521d434b</code>
 </td>
 <td />
 
@@ -8377,7 +8380,7 @@
     
 <td >
 <code>f14b5983dd</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9335666568" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -8409,7 +8412,7 @@
     
 <td >
 <code>10f66d21e0</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9335975718" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -17830,6 +17833,9 @@
     <h2>Next steps</h2>
     <pre>
 
+./build.sh 2435119e6a 69521d434b
+./build.sh 2a2ad75faa f14b5983dd
+./build.sh a0fb412989 10f66d21e0
 ./build.sh 00f59a91ee ae05d56908
 ./build.sh 6d07092d1e 86f7e725f6
 ./build.sh d096f59f86 49149b7e21
@@ -17847,13 +17853,10 @@
 ./build.sh b142f709e1 68049f27ac
 ./build.sh 03a5c5034f 56ead5cef1
 ./build.sh a272b222f1 0c76cf0e0c
-./build.sh 20d5b5b9c0 76fb360f90
-./build.sh 5c69d63157 06dcd4034e
-./build.sh 5e462f704a 8e82f7057e
 
     </pre>
 
-<p>(And 561 more.)</p>
+<p>(And 564 more.)</p>
 
     </div>
     </main>
