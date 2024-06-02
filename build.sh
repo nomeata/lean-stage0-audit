@@ -23,6 +23,7 @@ git rev-parse --short "$revspec"
 rev=$(git rev-parse --short "$revspec")
 
 git reset --hard "$rev"
+git clean -f
 
 if [ -z "$treespec" ]
 then
@@ -78,6 +79,8 @@ else
     echo "Applying 4b03666eccad726d459cdb9dd6034f0089f60aaa"
     git show 4b03666eccad726d459cdb9dd6034f0089f60aaa|git apply -
   fi
+
+  git add .
 
 
   # we want update-stage0-commit not fail due to an empty commit
