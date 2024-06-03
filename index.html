@@ -30,7 +30,7 @@
     <h2>Current status</h2>
 
 
-    <p>The current <code>stage0/</code> code copy can be traced to <code>stage0/</code> in <a href="#cc4c82a6e7">revision ✨ <code>cc4c82a6e7</code></a> from 2022-01-06 in 530 steps.</p>
+    <p>The current <code>stage0/</code> code copy can be traced to <code>stage0/</code> in <a href="#a28ff92010">revision ✨ <code>a28ff92010</code></a> from 2022-01-10 in 529 steps.</p>
 
 
     <details>
@@ -8993,30 +8993,34 @@
     
 
     <tr>
-    <td><a name="a28ff92010"/></td>
+    <td><a name="a28ff92010"/><span title="earliest root of trust">✨</a></td>
     <td><a href="https://github.com/leanprover/lean4/commit/a28ff92010">🔗</a>&nbsp;<code>a28ff92010</code>
 </td>
-    <td ><code>38c7187933</code></td>
+    <td class="root"><code>38c7187933</code></td>
     
-<td class="derived">
+<td class="root">
 <code>020a2f751d</code> ⟹ 
 <span title="as claimed">✔</span>
 </td>
-<td />
-
-    <td/>
-    </tr>
-    
-
-    <tr>
-    <td><a name="cc4c82a6e7"/><span title="earliest root of trust">✨</a></td>
-    <td><a href="https://github.com/leanprover/lean4/commit/cc4c82a6e7">🔗</a>&nbsp;<code>cc4c82a6e7</code>
-</td>
-    <td class="root"><code>020a2f751d</code></td>
-    
 <td >
+<code>9564b07c1d</code> ⟹ 
+<span title="build pending">⌛</span>
+</td>
+
+    <td/>
+    </tr>
+    
+
+    <tr>
+    <td><a name="fc4003d5d2"/> <span title="manual replacement">⮌</a></td>
+    <td><a href="https://github.com/leanprover/lean4/commit/fc4003d5d2">🔗</a>&nbsp;<code>fc4003d5d2</code>
+&nbsp;(<a href="https://github.com/leanprover/lean4/commit/cc4c82a6e7">🔗</a>&nbsp;<code>cc4c82a6e7</code>)
+</td>
+    <td ><code>020a2f751d</code></td>
+    
+<td class="derived">
 <code>8ecca8b72f</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9344344400" title="build failed">☹</a>
+<code>9564b07c1d</code>
 </td>
 <td />
 
@@ -9025,14 +9029,14 @@
     
 
     <tr>
-    <td><a name="fa597c6fb8"/></td>
-    <td><a href="https://github.com/leanprover/lean4/commit/fa597c6fb8">🔗</a>&nbsp;<code>fa597c6fb8</code>
+    <td><a name="ea70188cb1"/></td>
+    <td><a href="https://github.com/leanprover/lean4/commit/ea70188cb1">🔗</a>&nbsp;<code>ea70188cb1</code>
 </td>
     <td class="root"><code>8ecca8b72f</code></td>
     
 <td >
 <code>87cc92c94b</code> ⟹ 
-<a href="https://github.com/nomeata/lean-stage0-audit/actions/runs/9344612264" title="build failed">☹</a>
+<span title="build pending">⌛</span>
 </td>
 <td />
 
@@ -17851,6 +17855,8 @@
     <h2>Next steps</h2>
     <pre>
 
+./build.sh a28ff92010 9564b07c1d
+./build.sh ea70188cb1 87cc92c94b
 ./build.sh 75233a40f7 9fd6bbf412
 ./build.sh 6499798a35 dbfcaca33e
 ./build.sh d51def739e abd2bd9261
@@ -17869,12 +17875,10 @@
 ./build.sh e1f0733a1c 1545fc1adf
 ./build.sh 21f0b8c397 dce27ba144
 ./build.sh d253b2d2a7 8a36c16086
-./build.sh b5afc34391 0f8c9f8d35
-./build.sh 093fd48e48 fcb78db9e3
 
     </pre>
 
-<p>(And 525 more.)</p>
+<p>(And 527 more.)</p>
 
     </div>
     </main>
