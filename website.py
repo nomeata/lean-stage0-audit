@@ -71,21 +71,30 @@ for i in reversed(range(len(revdata))):
         roots.add(next)
     stage0_current = next
 
-# find the starting point
-first_rev = None
-first_date = None
-steps = 0
-for r in revdata:
-    if r["stage0_expt"] in derived or r["stage0_alt"] in derived or r["stage0_parent"] in derived:
-        steps += 1
-    else:
-        first_rev = r["rev"]
-        first_date = r["date"]
+def is_root_rev(i):
+    r = revdata[i]
+    return not (r["stage0_expt"] in derived or r["stage0_alt"] in derived or r["stage0_parent"] in derived)
+
+# find the first interesting from bottom
+for i in reversed(range(len(revdata))):
+    if not is_root_rev(i):
+        last_looked_at = i+1
         break
+
+root_revs = [ i for i in range(last_looked_at+1) if is_root_rev(i) ]
+# find the starting point
+first_steps = root_revs[0]
+first_rev = revdata[first_steps]["rev"]
+first_date = revdata[first_steps]["date"]
+
+# find the last
+todo_revs = len(root_revs)-1
+last_steps = root_revs[-1]
+last_rev = revdata[last_steps]["rev"]
+last_date = revdata[last_steps]["date"]
 
 for rev, tree in to_run[:1]:
     open("next-step.sh","w").write(f"./build.sh {rev} {tree}\n")
-
 
 print('''
     <!doctype html>
@@ -119,7 +128,8 @@ print('''
     <h2>Current status</h2>
 ''')
 print(f'''
-    <p>The current <code>stage0/</code> code copy can be traced to <code>stage0/</code> in <a href="#{first_rev}">revision ✨ <code>{first_rev}</code></a> from {first_date} in {steps} steps.</p>
+    <p>The current <code>stage0/</code> code copy can be traced to <code>stage0/</code> in <a href="#{first_rev}">revision ✨ <code>{first_rev}</code></a> from {first_date} in {first_steps} steps.</p>
+    <p>Investigating {todo_revs} revisions will trace it to <a href="#{last_rev}">revision <code>{last_rev}</code></a> from {last_date} in {last_steps} steps.</p>
 ''')
 
 print('''
