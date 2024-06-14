@@ -43,6 +43,11 @@ then
   # just a flag update, do not build anything, just apply this to the given tree
   git checkout "$rev" -- stage0/src/stdlib_flags.h
   after=$(git rev-parse --short $(git write-tree --prefix=stage0)) # use tree, not HEAD
+elif [ "$(git diff --name-only $rev^..$rev -- stage0)" = "stage0/src/library/compiler/ir_interpreter.cpp" ]
+then
+  # like above, just more blunt (for https://github.com/leanprover/lean4/commit/79107a2316)
+  git checkout "$rev" -- stage0/src/library/compiler/ir_interpreter.cpp
+  after=$(git rev-parse --short $(git write-tree --prefix=stage0)) # use tree, not HEAD
 elif [ "$(git diff --name-only $rev^..$rev -- stage0)" = "stage0/src/lean.mk.in" ]
 then
   # just a make file update, do not build anything, just apply this to the given tree
