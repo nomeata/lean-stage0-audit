@@ -16,7 +16,7 @@ revdata = []
 to_run = []
 
 for i in range(len(digest)-1):
-    (date, masterrev, rev, stage0_expt, flags_only, clean) = digest[i]
+    (date, masterrev, rev, stage0_expt, flags_only, clean, on_master) = digest[i]
     parent_tree = digest[i+1][3]
     stage0_parent = builds[rev].get(parent_tree)
 
@@ -27,6 +27,7 @@ for i in range(len(digest)-1):
         "stage0_expt": stage0_expt,
         "flags_only": flags_only == "True",
         "clean": clean == "True",
+        "on_master": on_master == "True",
         "parent_tree": parent_tree,
         "stage0_parent": builds[rev].get(parent_tree),
         "good": False,
@@ -235,7 +236,7 @@ print('''
       <li>⌛: build not attepmted yet</li>
       <li>🏁: only stdflags.h is changed</li>
       <li>⚠: commit mixes stage0 and other changes</li>
-      <li>⮌: commit was replaced by another commit</li>
+      <li>⮌: commit is part of a manually grafted alternative history. Commit in parentheis: Graft-point on the master branch.</li>
       <li>red cell: this is the beginning of a chain of reproduced stage0</li>
       <li>green cell: this stage0 is can be tracted to an earlier version</li>
       <li>✨: commit to trust to reproduce the latest stage0</li>
@@ -297,7 +298,7 @@ for d in revdata:
     built_with = "?"
     comment = ""
 
-    if d['masterrev'] != d['rev']:
+    if not d['on_master']:
         status += " <span title=\"manual replacement\">⮌</a>"
     if d['flags_only']:
         status += " <span title=\"stdflags.h update\">🏁</a>"

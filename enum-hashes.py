@@ -29,6 +29,7 @@ def main():
         git(f"git -C lean4 cat-file -e {realrev} || git -C lean4 fetch origin {realrev}")
 
     todo = git_log("master -- stage0")
+    master_revs = set(rev for rev,date in todo)
     while todo:
         rev, date = todo.pop(0)
         if rev in bad_squashes:
@@ -39,7 +40,8 @@ def main():
         tree_hash = get_tree_hash(realrev)
         flags_only = is_flags_only(realrev)
         clean = flags_only or is_clean(realrev)
-        print(f"{date},{rev},{realrev},{tree_hash},{flags_only},{clean}")
+        on_master = realrev in master_revs
+        print(f"{date},{rev},{realrev},{tree_hash},{flags_only},{clean},{on_master}")
 
 if __name__ == "__main__":
     main()
