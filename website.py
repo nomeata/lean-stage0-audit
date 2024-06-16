@@ -176,6 +176,10 @@ print('''
       Sometimes such a PR is accidentially not merged by rebase, but rather by squashing. Now the stage0
       update is mixed with the source changes.
       </li>
+      <li>
+      Sometimes one of the flags in <code>stage0/src/stdlib_flags.h</code> is
+      set, but this change is not committed before the next stage0 update.
+      </li>
     </ul>
     </details>
 
