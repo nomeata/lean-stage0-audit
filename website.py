@@ -117,6 +117,7 @@ print('''
     td.root {  background-color: #E33; }
     td { white-space:nowrap; }
     td:last-child { width:100%; }
+    td.grafted { text-decoration: line-through }
 
     summary h2 { display: inline-block };
     </style>
@@ -227,7 +228,8 @@ print('''
     <summary><h2>Legend</h2></summary>
 
     <ul>
-      <li>rev: stage0 changing commit. If this is a grafted commit, original commit in parentheses.</li>
+      <li>rev: stage0 changing commit on the master branch.</li>
+      <li>graft: if the commit has been grafted, the actual commits considered.</li>
       <li>claim: stage0 as recorded in the commit</li>
       <li>from parent: stage0 of parent and, after ⟹, result of building a new stage0.</li>
       <li>from alt.: stage0 of parent in the “alternative history” and, after ⟹, result of building a new stage0.</li>
@@ -236,7 +238,6 @@ print('''
       <li>⌛: build not attepmted yet</li>
       <li>🏁: only stdflags.h is changed</li>
       <li>⚠: commit mixes stage0 and other changes</li>
-      <li>⮌: commit is part of a manually grafted alternative history. Commit in parentheis: Graft-point on the master branch.</li>
       <li>red cell: this is the beginning of a chain of reproduced stage0</li>
       <li>green cell: this stage0 is can be tracted to an earlier version</li>
       <li>✨: commit to trust to reproduce the latest stage0</li>
@@ -268,6 +269,7 @@ print('''
     <tr>
     <th>status</th>
     <th>rev</th>
+    <th>graft</th>
     <th>claim</th>
     <th>from parent</th>
     <th>from alt.</th>
@@ -298,8 +300,6 @@ for d in revdata:
     built_with = "?"
     comment = ""
 
-    if not d['on_master']:
-        status += " <span title=\"manual replacement\">⮌</a>"
     if d['flags_only']:
         status += " <span title=\"stdflags.h update\">🏁</a>"
     if not d['clean']:
@@ -311,10 +311,23 @@ for d in revdata:
     print(f'''
     <tr>
     <td><a name="{d['rev']}"/>{status}</td>
-    <td>{revlink(d['rev'])}''')
+    ''')
     if d['masterrev'] != d['rev']:
-        print(f'''&nbsp;({revlink(d['masterrev'])})''')
-    print(f'''</td>
+      print(f'''
+      <td class="grafted">{revlink(d['masterrev'])}</td>
+      <td>{revlink(d['rev'])}</td>
+      ''')
+    elif d['on_master']:
+      print(f'''
+      <td>{revlink(d['masterrev'])}</td>
+      <td/>
+      ''')
+    else:
+      print(f'''
+      <td/>
+      <td>{revlink(d['rev'])}</td>
+      ''')
+    print(f'''
     <td {tdclass(None,d['stage0_expt'])}>{tree(d['stage0_expt'])}</td>
     ''')
 
