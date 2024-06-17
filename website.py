@@ -237,7 +237,8 @@ print('''
       <li>claim: stage0 as recorded in the commit</li>
       <li>from parent: stage0 of parent and, after ⟹, result of building a new stage0.</li>
       <li>from alt.: stage0 of parent in the “alternative history” and, after ⟹, result of building a new stage0.</li>
-      <li>✓: produces same stage0 as claimed </li>
+      <li>✓: produces same stage0 as claimed</li>
+      <li>(✓): produces same stage0 as reproduced from parent commit </li>
       <li>☹: build attempted but failed (may link to build log)</li>
       <li>⌛: build not attepmted yet</li>
       <li>🏁: only stdflags.h is changed</li>
@@ -365,6 +366,8 @@ for d in revdata:
                 print(f'''<span title="build failed">☹</span>''')
         elif d['stage0_expt'] == d['stage0_alt']:
             print(f'''<span title="as claimed">✔</span>''')
+        elif d['stage0_parent'] == d['stage0_alt']:
+            print(f'''<span title="as reproduced from parent">(✔)</span>''')
         else:
             print(f'''{tree(d['stage0_alt'])}''')
         print(f'''</td>''')
