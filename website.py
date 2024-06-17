@@ -131,8 +131,11 @@ print('''
 ''')
 print(f'''
     <p>The current <code>stage0/</code> code copy can be traced to <code>stage0/</code> in <a href="#{first_rev}">revision ✨ <code>{first_rev}</code></a> from {first_date} in {first_steps} steps.</p>
-    <p>Investigating {todo_revs} revisions will trace it to <a href="#{last_rev}">revision <code>{last_rev}</code></a> from {last_date} in {last_steps} steps.</p>
 ''')
+if todo_revs > 0:
+    print(f'''
+        <p>Investigating {todo_revs} revisions will trace it to <a href="#{last_rev}">revision <code>{last_rev}</code></a> from {last_date} in {last_steps} steps.</p>
+    ''')
 
 print('''
     <details>
