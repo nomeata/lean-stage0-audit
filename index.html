@@ -31,8 +31,11 @@
     <h2>Current status</h2>
 
 
-    <p>The current <code>stage0/</code> code copy can be traced to <code>stage0/</code> in <a href="#c5aba69471">revision ✨ <code>c5aba69471</code></a> from 2020-12-05 in 1039 steps.</p>
+    <p>The current <code>stage0/</code> code copy can be traced to <code>stage0/</code> in <a href="#8c62db8ee8">revision ✨ <code>8c62db8ee8</code></a> from 2020-12-05 in 1038 steps.</p>
 
+
+        <p>Investigating 1 revisions will trace it to <a href="#c4b4625a72">revision <code>c4b4625a72</code></a> from 2020-12-05 in 1040 steps.</p>
+    
 
     <details>
     <summary><h2>The Problem</h2></summary>
@@ -21697,7 +21700,7 @@
     
 
     <tr>
-    <td><a name="8c62db8ee8"/></td>
+    <td><a name="8c62db8ee8"/><span title="earliest root of trust">✨</a></td>
     
 
       <td><a href="https://github.com/leanprover/lean4/commit/8c62db8ee8">🔗</a>&nbsp;<code>8c62db8ee8</code></td>
@@ -21706,29 +21709,32 @@
 
     <td ><code>075ac3cdcd</code></td>
     
-<td class="derived">
+<td class="root">
 <code>af0e50a1cd</code> ⟹ 
 <code>6edd293567</code>
 </td>
-<td />
+<td >
+<code>44bdd94928</code> ⟹ 
+<span title="build pending">⌛</span>
+</td>
 
     <td/>
     </tr>
     
 
     <tr>
-    <td><a name="c5aba69471"/><span title="earliest root of trust">✨</a></td>
+    <td><a name="c5aba69471"/></td>
     
 
       <td><a href="https://github.com/leanprover/lean4/commit/c5aba69471">🔗</a>&nbsp;<code>c5aba69471</code></td>
       <td/>
       
 
-    <td class="root"><code>af0e50a1cd</code></td>
+    <td ><code>af0e50a1cd</code></td>
     
-<td >
+<td class="derived">
 <code>36eed70a36</code> ⟹ 
-<span title="build pending">⌛</span>
+<code>44bdd94928</code>
 </td>
 <td />
 
@@ -22661,7 +22667,7 @@
     <h2>Next steps</h2>
     <pre>
 
-./build.sh c5aba69471 36eed70a36
+./build.sh 8c62db8ee8 44bdd94928
 ./build.sh c4b4625a72 8df4b2e88f
 ./build.sh b6badf21ae ed81e48d64
 ./build.sh 94ff89bfc4 9433d4b27d
