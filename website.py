@@ -2,6 +2,7 @@
 
 import csv
 from collections import defaultdict
+from pathlib import Path
 
 digest = list(csv.reader(open('repo-digest.csv', 'r')))
 with_nix = csv.reader(open('builds.csv', 'r'))
@@ -94,8 +95,11 @@ last_steps = root_revs[-1]
 last_rev = revdata[last_steps]["rev"]
 last_date = revdata[last_steps]["date"]
 
-for rev, tree in to_run[:1]:
-    open("next-step.sh","w").write(f"./build.sh {rev} {tree}\n")
+if to_run:
+    for rev, tree in to_run[:1]:
+        open("next-step.sh","w").write(f"./build.sh {rev} {tree}\n")
+else:
+    Path('next-step.sh').unlink(missing_ok = True)
 
 print('''
     <!doctype html>

@@ -19,14 +19,25 @@ jobs:
       uses: DeterminateSystems/nix-installer-action@main
     - run: ./enum-hashes.py > repo-digest.csv
     - run: ./website.py > index.html
+    - name: Determine if there is something to do
+      run: if test -e next-step.sh; then echo "doit=yes"; else echo "doit=no"; fi >> "$GITHUB_ENV"
     - name: Determine what to do
+      if: env.doit == 'yes'
       run: echo "command=$(cat next-step.sh)" >> "$GITHUB_ENV"
     - run: "${{ env.command }}"
+      if: env.doit == 'yes'
       env:
         LOGURL: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
     - run: ./website.py > index.html
+      if: env.doit == 'yes'
+    - run: test -e next-step.sh && git add next-step.sh
+      if: env.doit == 'yes'
     - run: git commit -a -m 'Github run of ${{ env.command }}'
+      if: env.doit == 'yes'
     - run: git pull --rebase
+      if: env.doit == 'yes'
     - run: git push origin 'refs/stage0/*:refs/stage0/*'
+      if: env.doit == 'yes'
     - run: git push origin master
+      if: env.doit == 'yes'
 
