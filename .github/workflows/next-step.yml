@@ -30,7 +30,7 @@ jobs:
         LOGURL: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
     - run: ./website.py > index.html
       if: env.doit == 'yes'
-    - run: test -e next-step.sh && git add next-step.sh
+    - run: test -e next-step.sh && git add next-step.sh || true
       if: env.doit == 'yes'
     - run: git commit -a -m 'Github run of ${{ env.command }}'
       if: env.doit == 'yes'
