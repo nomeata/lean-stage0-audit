@@ -1,8 +1,9 @@
 name: Run build
 on:
   workflow_dispatch:
-  schedule:
-  - cron: '0 */8 * * *'
+  # disabled due to the removal of the nix build
+  #schedule:
+  #- cron: '0 */8 * * *'
 
 jobs:
   run:
